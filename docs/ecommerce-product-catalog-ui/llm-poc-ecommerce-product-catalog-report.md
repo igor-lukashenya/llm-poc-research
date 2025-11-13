@@ -19,6 +19,7 @@
 - **No Visuals:** LLM can’t generate or read images/wireframe guidance
 - **Big Components:** Main UI could be split into smaller components for clarity
 - **Testing:** No automated tests were generated
+- **MUI Grid Error:** The LLM could not resolve a recurring TypeScript error with the MUI `Grid` component's `item` prop, which required manual investigation and fix.
 
 ## Code Quality Snapshot
 
