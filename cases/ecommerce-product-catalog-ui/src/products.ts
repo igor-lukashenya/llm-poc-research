@@ -38,7 +38,7 @@ export const products: Product[] = Array.from({ length: 96 }, (_, i) => {
     brand: brands[i % brands.length],
     price: +(Math.random() * 200 + 10).toFixed(2),
     rating: +(Math.random() * 2 + 3).toFixed(1),
-    image: `https://picsum.photos/id/${1000 + i}/300/200`,
+    image: `https://placecats.com/${300 + i}/200`,
     reviews: Math.floor(Math.random() * 200) + 10,
   };
 });
