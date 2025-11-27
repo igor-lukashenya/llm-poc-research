@@ -1,16 +1,12 @@
 import {
   Box,
   Typography,
-  Card,
-  CardMedia,
-  CardContent,
-  Chip,
-  Rating,
   IconButton,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { products } from "./products";
+import ProductCard from "./ProductCard";
 
 export default function Home() {
   // Get unique categories
@@ -22,7 +18,7 @@ export default function Home() {
         minHeight: "100vh",
         px: 4,
         py: 4,
-        width: "100vw",
+        width: "100%",
         overflowX: "hidden",
         boxSizing: "border-box",
       }}
@@ -57,7 +53,6 @@ export default function Home() {
                 alignItems: "center",
                 position: "relative",
                 width: "100%",
-                maxWidth: "100vw",
                 overflow: "visible",
               }}
             >
@@ -85,45 +80,10 @@ export default function Home() {
                   scrollBehavior: "smooth",
                   flex: 1,
                   width: "100%",
-                  maxWidth: "100vw",
                 }}
               >
                 {catProducts.map((product) => (
-                  <Card
-                    key={product.id}
-                    sx={{ minWidth: 260, maxWidth: 280, flex: "0 0 auto" }}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="160"
-                      image={product.image}
-                      alt={product.name}
-                    />
-                    <CardContent>
-                      <Typography variant="subtitle1" gutterBottom>
-                        {product.name}
-                      </Typography>
-                      <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-                        <Chip label={product.brand} size="small" />
-                      </Box>
-                      <Typography variant="body2" color="text.secondary">
-                        ${product.price.toFixed(2)}
-                      </Typography>
-                      <Box
-                        sx={{ display: "flex", alignItems: "center", mt: 1 }}
-                      >
-                        <Rating
-                          value={product.rating}
-                          precision={0.1}
-                          readOnly
-                          size="small"
-                        />
-                        <Typography variant="caption" sx={{ ml: 0.5 }}>
-                          ({product.reviews} reviews)
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                  </Card>
+                  <ProductCard key={product.id} product={product} />
                 ))}
               </Box>
               <IconButton

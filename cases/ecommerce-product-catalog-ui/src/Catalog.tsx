@@ -1,9 +1,6 @@
 import { useState } from "react";
 import {
   Container,
-  Card,
-  CardMedia,
-  CardContent,
   Typography,
   CardActions,
   Button,
@@ -12,12 +9,12 @@ import {
   FormControl,
   InputLabel,
   TextField,
-  Rating,
   Box,
-  Chip,
+  Chip
 } from "@mui/material";
-import Grid from "@mui/material/Grid";
+import { Grid } from "@mui/material";
 import { products } from "./products";
+import ProductCard from "./ProductCard";
 
 const categories = [...new Set(products.map((p) => p.category))];
 const brands = [...new Set(products.map((p) => p.brand))];
@@ -58,7 +55,7 @@ export default function Catalog() {
         width: "100vw",
         display: "flex",
         flexDirection: "column",
-        px: 0,
+        px: 4,
       }}
     >
       <Box
@@ -151,42 +148,11 @@ export default function Catalog() {
         >
           {filtered.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-              <Card
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={product.image}
-                  alt={product.name}
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" gutterBottom>
-                    {product.name}
-                  </Typography>
-                  <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
-                    <Chip label={product.category} size="small" />
-                    <Chip label={product.brand} size="small" />
-                  </Box>
-                  <Typography variant="body2" color="text.secondary">
-                    ${product.price.toFixed(2)}
-                  </Typography>
-                  <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
-                    <Rating
-                      value={product.rating}
-                      precision={0.1}
-                      readOnly
-                      size="small"
-                    />
-                    <Typography variant="caption" sx={{ ml: 0.5 }}>
-                      ({product.reviews} reviews)
-                    </Typography>
-                  </Box>
-                </CardContent>
+              <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+                <ProductCard product={product} />
+                <Box sx={{ display: "flex", gap: 1, mt: 1, mb: 1 }}>
+                  <Chip label={product.category} size="small" />
+                </Box>
                 <CardActions>
                   <Button
                     size="small"
@@ -205,7 +171,7 @@ export default function Catalog() {
                       : "Add to Favorites"}
                   </Button>
                 </CardActions>
-              </Card>
+              </Box>
             </Grid>
           ))}
         </Grid>
