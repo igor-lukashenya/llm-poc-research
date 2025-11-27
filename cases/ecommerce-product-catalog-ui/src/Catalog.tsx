@@ -2,15 +2,13 @@ import { useState } from "react";
 import {
   Container,
   Typography,
-  CardActions,
   Button,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
   TextField,
-  Box,
-  Chip
+  Box
 } from "@mui/material";
 import { Grid } from "@mui/material";
 import { products } from "./products";
@@ -148,29 +146,20 @@ export default function Catalog() {
         >
           {filtered.map((product) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
-              <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                <ProductCard product={product} />
-                <Box sx={{ display: "flex", gap: 1, mt: 1, mb: 1 }}>
-                  <Chip label={product.category} size="small" />
-                </Box>
-                <CardActions>
-                  <Button
-                    size="small"
-                    variant={
-                      favorites.includes(product.id)
-                        ? "contained"
-                        : "outlined"
-                    }
-                    color={
-                      favorites.includes(product.id) ? "secondary" : "primary"
-                    }
-                    onClick={() => handleFavorite(product.id)}
-                  >
-                    {favorites.includes(product.id)
-                      ? "Favorited"
-                      : "Add to Favorites"}
-                  </Button>
-                </CardActions>
+              <Box sx={{ width: 280, height: 390, display: "flex", alignItems: "stretch" }}>
+                <ProductCard
+                  product={product}
+                  actions={
+                    <Button
+                      size="small"
+                      variant={favorites.includes(product.id) ? "contained" : "outlined"}
+                      color={favorites.includes(product.id) ? "secondary" : "primary"}
+                      onClick={() => handleFavorite(product.id)}
+                    >
+                      {favorites.includes(product.id) ? "Favorited" : "Add to Favorites"}
+                    </Button>
+                  }
+                />
               </Box>
             </Grid>
           ))}

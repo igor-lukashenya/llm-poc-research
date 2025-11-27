@@ -83,7 +83,9 @@ export default function Home() {
                 }}
               >
                 {catProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
+                  <Box key={product.id} sx={{ width: 280 }}>
+                    <ProductCard product={product} />
+                  </Box>
                 ))}
               </Box>
               <IconButton
