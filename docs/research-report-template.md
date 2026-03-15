@@ -8,30 +8,37 @@
 
 ## 2. Research Context & Goals
 
-- **Business context:** Why this research was initiated.
-- **Main goal:** Confirm if LLMs can implement end-to-end PoCs that are demonstrable to clients.
+- **Business context:** Investigate whether LLMs can be used to speed up the generation of proof of concept implementations for various product ideas. A PoC has to be small and may not be fully complete, but it has to be fully demonstrable to the client.
+- **Main goal:** Focus on PoC implementation and test the ability of LLM to write complete code that covers PoC requirements across different domains and technology stacks.
 - **Scope of this research:**
-  - E-Commerce product catalog web client
-  - Financial tracker mobile app
-  - Integration with existing public API
-  - Integration with private customer API
-  - New AI-powered feature in an existing app
-  - SpecKit usage for E-Commerce catalog MVP
-- **Out of scope / assumptions:**
-  - (e.g., production-grade security, performance tuning, infra automation, etc.)
+  - E-Commerce product catalog web client (React, TypeScript, Vite)
+  - Financial tracker mobile app (React Native, Expo Go, TypeScript)
+  - Integration with existing public API (ASP.NET, Azure API Management, Microsoft Entra ID)
+  - Integration with private customer API (ASP.NET, private NuGet package)
+  - New AI-powered feature in an existing app (ASP.NET, React, Azure OpenAI, Semantic Kernel)
+  - Alternative tooling: SpecKit for E-Commerce catalog MVP
+- **Evaluation criteria:**
+  - Business use cases: whether initial requirements are met, ability to generate meaningful sample data, ability to generate working PoCs for different domains
+  - Reliability: whether generated PoC functions correctly without major modifications, frequency of significant bugs or logical errors
+  - Code quality: structure, readability, maintainability, unnecessary complexity, anti-patterns, ability to work across different technology stacks, integration with existing frameworks and third-party libraries
+  - Speed: how LLM helped to speed up PoC development compared to traditional development methods, key bottlenecks requiring human intervention
+  - Prompting: calibrated and refined prompts that worked best
 
 ## 3. Methodology
 
 - **LLM setup:**
-  - Model(s) used:
-  - Tools/IDE used (e.g., VS Code + Copilot):
-  - Additional plugins / extensions:
+  - Models used: Claude Opus 4.5, Claude Opus 4.6, GPT-4.1, GPT-5.1
+  - Tools/IDE used: VS Code + GitHub Copilot, Copilot CLI
+  - Additional tools: SpecKit (evaluated for spec-driven development)
 - **Working style:**
-  - How prompts were crafted and iterated.
-  - Division of work between LLM and human (design, coding, refactoring, testing).
+  - Requirements provided to LLM as structured prompts, refined iteratively based on output quality
+  - LLM handled ADR generation, code scaffolding, code generation, and unit tests
+  - Human handled visual validation, layout/style fixes, infrastructure provisioning, private package documentation, and final integration
+  - Each PoC started with design/ADR generation, followed by implementation prompts, with iterative refinement as needed
 - **Measurement approach:**
-  - How “speed” was estimated (time logs, rough estimation, comparison to baseline).
-  - How “correctness” and “quality” were judged (manual review, test cases, etc.).
+  - Speed estimated by counting prompt iterations and comparing effort to estimated manual development baseline
+  - Correctness judged by manual code review, functional testing, and ability to run the application end-to-end
+  - Code quality assessed by reviewing structure, patterns, maintainability, and adherence to best practices
 
 ---
 
@@ -147,11 +154,17 @@
 - For frontend UI PoCs, it would be faster to implement manually than to iterate with LLM and fix broken layouts after each cycle
 - LLM is useful for initial project scaffolding and generating sample data structure, but not for visual/layout-heavy work
 
+### 4.6 Alternative Approach: SpecKit
+
+- Attempted to implement the same E-Commerce Product Catalog using SpecKit with spec-driven development approach
+- SpecKit is not suitable for PoC development; it is designed for real, full-scale projects that follow spec-driven development methodology
+- Generates excessive amounts of unused and unreadable code that adds no value in a PoC context
+- Time spent understanding and cleaning up generated code exceeded the time it would take to write the PoC manually
+- For PoC purposes, SpecKit adds unnecessary complexity and overhead without meaningful productivity gains
+
 ---
 
 ## 5. PoC Case 2 – Financial Tracker Mobile App
-
-*(Investigate how LLM can implement a mobile application from scratch.)*
 
 ### 5.1 Business Use Case & Requirements
 
@@ -237,31 +250,169 @@
 
 ## 6. PoC Case 3 – Integration with Existing Public API
 
-*(Same structure, with emphasis on API integration)*
-
 ### 6.1 Business Use Case & Requirements
 
+- Implement ability to create and manage Azure API Management subscriptions from ASP.NET server
+- One of the products wants to use APIM subscriptions to protect their Azure Functions and provide these subscriptions to customers
+- For each subscription, manage the list of products available through that subscription
+- Implement subscription rotation every 90 days
+- Provide subscriptions list on Admin panel with filtering, sorting, and pagination
+
 ### 6.2 Architecture & Technology Stack
+
+- ASP.NET (C#)
+- Azure API Management
+- Microsoft Entra ID
 
 ### 6.3 LLM Involvement in Implementation
 
 #### 6.3.1 What was delegated to the LLM
 
+- Architecture Decision Records (ADR) and feature design
+- Server-side C# code generation for subscription management
+- Unit tests generation with mock support
+- Integration with existing ASP.NET API
+
 #### 6.3.2 What required human input
+
+- Configuration of products list in Azure API Management
+- Microsoft Entra ID token acquisition and configuration for APIM access
+- Admin panel subscriptions listing with filtering, sorting, and pagination (initially missed by LLM)
 
 #### 6.3.3 Prompt interaction flow
 
+- ADR and feature design generated in initial prompt iterations
+- Core subscription management code generated in less than 5 iterations
+- Code was production-quality with unit tests and mock support out of the box
+- Extra prompts required to address missing admin panel listing requirement (filtering, sorting, pagination)
+- LLM was not able to configure APIM products list or Entra ID token management regardless of iteration count
+
 #### 6.3.4 Integration effort
+
+- C# code integrated smoothly into existing ASP.NET API with minimal effort
+- Unit tests with mocks integrated without issues
+- APIM product configuration required fully manual implementation
+- Microsoft Entra ID setup for token management required fully manual implementation
+- Admin panel listing feature required additional prompt iterations after LLM ignored the requirement
 
 ### 6.4 Evaluation
 
+#### 6.4.1 Business Use Cases
+
+- Core subscription management feature met business requirements
+- Subscription rotation logic implemented correctly
+- Admin panel listing with filtering, sorting, and pagination was initially missed; implemented after extra prompts
+- Products list configuration per subscription in APIM was not achievable through LLM
+
+#### 6.4.2 Reliability
+
+- Core C# code was reliable and production-ready
+- LLM failed on Azure-specific integration tasks: APIM product configuration and Entra ID token management
+- LLM ignored one of the explicit requirements (admin panel listing), requiring additional iterations to address
+
+#### 6.4.3 Code Quality
+
+- Generated C# code was production-quality and followed existing patterns
+- Unit tests were well-structured with proper mock support
+- Code was ready for integration without significant rework
+- APIM configuration and Entra ID integration code was unusable
+
+#### 6.4.4 Speed
+
+- ADR and feature design: significant speedup
+- Core subscription management code: fast generation, less than 5 iterations
+- Admin panel listing: moderate slowdown due to initially missed requirement and extra iterations
+- APIM product configuration and Entra ID: no speedup, fully manual implementation required
+
 ### 6.5 Key Findings & Lessons Learned
+
+- LLM generates high-quality, production-ready C# code for server-side features when integrating with well-documented public Azure APIs
+- ADR and feature design generation continues to provide immediate value, consistent with findings from other cases
+- LLM fails on Azure-specific resource configuration tasks (APIM product list management) that require knowledge of specific Azure service internals
+- Microsoft Entra ID token acquisition and configuration remains outside LLM's reliable capabilities
+- LLM can miss explicit requirements (admin panel listing was ignored), requiring careful review and additional prompts
+- Server-side/API code generation is a strong use case for LLM; integration with existing Azure infrastructure and identity management is not
+- Unit tests with mock support were generated alongside the code, improving overall code quality and testability
 
 ---
 
 ## 7. PoC Case 4 – Integration with Private Customer API
 
-*(Same structure, with notes on working only from specs / stubs / documentation.)*
+### 7.1 Business Use Case & Requirements
+
+- One of the companies implemented their own user authorization service
+- The service handles authorization, stores user roles and grants for each company application
+- Administrators can manage user access from a single panel across all company applications
+- Investigate ability to integrate an existing application with this private authorization service
+
+### 7.2 Architecture & Technology Stack
+
+- ASP.NET (C#)
+- Private company authorization service
+- Private NuGet package for service integration
+
+### 7.3 LLM Involvement in Implementation
+
+#### 7.3.1 What was delegated to the LLM
+
+- Architecture Decision Records (ADR) and feature design
+- Server-side C# code generation for authorization integration
+- Unit tests generation with mock support
+
+#### 7.3.2 What required human input
+
+- Investigation of private NuGet package API and documentation
+- Explaining private package logic, contracts, and usage patterns to LLM
+- Providing detailed descriptions of authorization service behavior and integration points
+
+#### 7.3.3 Prompt interaction flow
+
+- Results are mostly the same as for Integration with Existing Public API, but with significantly more prompts and iterations
+- About 25+ iterations to get a working solution
+- Each iteration required explaining private NuGet package internals to LLM because the service is private and not in LLM's training data
+- Writing detailed prompts about package behavior sometimes took more time than writing the code manually using IntelliSense
+- After all explanations and additional prompts, the final solution was working and functional
+
+#### 7.3.4 Integration effort
+
+- Same patterns as Public API case: core C# code integrated smoothly once LLM understood the contracts
+- Significant upfront effort to document and explain private NuGet package before LLM could generate usable code
+- Developer had to act as a bridge between private package documentation and LLM, translating API surface into prompts
+
+### 7.4 Evaluation
+
+#### 7.4.1 Business Use Cases
+
+- Final solution met business requirements for authorization integration
+- Working integration achieved after extensive prompt iterations
+
+#### 7.4.2 Reliability
+
+- Same as Public API case: core code was reliable once generated correctly
+- LLM could not independently discover or understand private NuGet package API without detailed human guidance
+
+#### 7.4.3 Code Quality
+
+- Generated C# code quality was good after sufficient context was provided
+- Code followed existing patterns and was production-ready
+- Unit tests with mock support were generated alongside the code
+
+#### 7.4.4 Speed
+
+- ADR and feature design: speedup consistent with other cases
+- Core integration code: significantly slower than Public API case due to 25+ iterations and extensive prompt writing
+- Time spent writing prompts to explain private package logic sometimes exceeded time to write the code manually
+- Net speedup is marginal or negative when factoring in prompt preparation overhead
+
+### 7.5 Key Findings & Lessons Learned
+
+- Results are consistent with Public API case but amplified by the private nature of the service
+- LLM cannot work with private NuGet packages without comprehensive human-provided documentation and explanations
+- Writing detailed prompts to explain private package internals can take more time than implementing the code manually using IntelliSense
+- The developer becomes a bottleneck: translating private API documentation into LLM-friendly prompts adds overhead that may negate productivity gains
+- After sufficient context is provided, LLM generates working, production-quality code with unit tests
+- For private API integrations, the ratio of prompt preparation effort to code generation value is unfavorable compared to public API integrations
+- LLM is viable for private API integration but the cost-benefit analysis is less compelling than for well-documented public APIs
 
 ---
 
@@ -381,7 +532,7 @@
 
 - Across all PoCs, did LLM-generated solutions meet initial requirements?
 - Where did LLM struggle to understand domain-specific details?
-- Which domains (ecommerce, fintech, integrations, AI feature) were most “LLM-friendly”?
+- Which domains (E-Commerce, fintech, integrations, AI feature) were most “LLM-friendly”?
 
 ### 9.2 Reliability
 
