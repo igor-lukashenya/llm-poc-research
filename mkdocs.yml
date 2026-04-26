@@ -1,0 +1,56 @@
+site_name: LLM PoC Research
+site_description: Research on using LLMs for Proof of Concept development
+repo_url: https://github.com/igor-lukashenya/llm-poc-research
+repo_name: igor-lukashenya/llm-poc-research
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - content.code.copy
+
+nav:
+  - Home: index.md
+  - Research:
+    - Definition: research-definition.md
+    - Full Report: research-report.md
+    - Summary: research-report-summary.md
+    - Case Ideas & Definitions: cases-ideas-and-definition.md
+    - Case Report Template: case-report-template.md
+  - Case Reports:
+    - E-Commerce Product Catalog: ecommerce-product-catalog-ui/case-report.md
+    - E-Commerce — SpecKit Evaluation: ecommerce-product-catalog-ui-spec-kit-copilot/case-report.md
+    - Financial Tracker Mobile App: fintech-personal-finance-overview/case-report.md
+    - Public API Integration: public-api-integration/case-report.md
+    - Private API Integration: private-api-integration/case-report.md
+    - AI-Powered Feature: ai-powered-feature/case-report.md
+  - Additional:
+    - E-Commerce Initial Report: ecommerce-product-catalog-ui/llm-poc-ecommerce-product-catalog-report.md
+    - E-Commerce Requirements: ecommerce-product-catalog-ui/poc-requirements-and-changes.md
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - toc:
+      permalink: true

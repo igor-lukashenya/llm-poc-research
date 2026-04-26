@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/client/">
+    <File Path="client/package.json" />
+    <File Path="client/vite.config.ts" />
+    <File Path="client/tsconfig.json" />
+    <File Path="client/index.html" />
+  </Folder>
+  <Project Path="AiParsingService.Api/AiParsingService.Api.csproj" />
+  <Project Path="AiParsingService.Application/AiParsingService.Application.csproj" />
+  <Project Path="AiParsingService.Domain/AiParsingService.Domain.csproj" />
+  <Project Path="AiParsingService.Infrastructure/AiParsingService.Infrastructure.csproj" />
+  <Project Path="Parsing.Configuration/Parsing.Configuration.csproj" />
+  <Project Path="Parsing/Parsing.csproj" />
+</Solution>

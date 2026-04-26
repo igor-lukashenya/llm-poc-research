@@ -1,0 +1,115 @@
+{
+  "separator": ",",
+  "has_header": true,
+  "grouping": {
+    "property_logical_name": "customerreference"
+  },
+  "blocks": [
+    {
+      "logical_name": "header",
+      "is_collection": false,
+      "start_index": 0,
+      "item_size": 0,
+      "variants": [],
+      "parameters": [
+        {
+          "index": 4,
+          "logical_name": "customerreference",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 2,
+          "logical_name": "productcode",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 1,
+          "logical_name": "productname",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 0,
+          "logical_name": "sampledate",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "DateTime",
+          "format": "MM/dd/yyyy HH:mm"
+        }
+      ]
+    },
+    {
+      "logical_name": "results",
+      "is_collection": true,
+      "start_index": 8,
+      "item_size": 4,
+      "variants": [],
+      "parameters": [
+        {
+          "index": 0,
+          "logical_name": "nutrientname",
+          "variants": [],
+          "source": "Header",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 0,
+          "logical_name": "nutrientresult",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        },
+        {
+          "index": 1,
+          "logical_name": "nutrientgh",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        },
+        {
+          "index": 2,
+          "logical_name": "nutrientnh",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        }
+      ]
+    }
+  ]
+}

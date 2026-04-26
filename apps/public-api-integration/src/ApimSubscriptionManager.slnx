@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="ApimSubscriptionManager.Api/ApimSubscriptionManager.Api.csproj" />
+  <Project Path="ApimSubscriptionManager.Application/ApimSubscriptionManager.Application.csproj" />
+  <Project Path="ApimSubscriptionManager.Domain/ApimSubscriptionManager.Domain.csproj" />
+  <Project Path="ApimSubscriptionManager.Infrastructure/ApimSubscriptionManager.Infrastructure.csproj" />
+</Solution>

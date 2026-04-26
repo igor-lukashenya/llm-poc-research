@@ -410,6 +410,9 @@ FodyWeavers.xsd
 # Built Visual Studio Code Extensions
 *.vsix
 
+# MkDocs build output
+site/
+
 # Windows Installer files from build outputs
 *.cab
 *.msi

@@ -1,0 +1,160 @@
+{
+  "separator": ";",
+  "has_header": false,
+  "blocks": [
+    {
+      "logical_name": "sampledetails",
+      "is_collection": false,
+      "start_index": 0,
+      "item_size": 0,
+      "variants": [],
+      "parameters": [
+        {
+          "index": 0,
+          "logical_name": "sampledate",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "datetime",
+          "format": "dd/MM/yyyy HH:mm:ss"
+        },
+        {
+          "index": 1,
+          "logical_name": "instrumentname",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 2,
+          "logical_name": "productname",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 2,
+          "logical_name": "iscalibration",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": "^.*_(\\w+)$",
+          "type": "bool",
+          "true_values": [
+            "CAL",
+            "CALIBRATION"
+          ],
+          "format": null
+        },
+        {
+          "index": 3,
+          "logical_name": "sampletype",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 4,
+          "logical_name": "samplenumber",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 5,
+          "logical_name": "filepath",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 6,
+          "logical_name": "batchid",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": "BatchID=(\\d+)",
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 7,
+          "logical_name": "method",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        }
+      ]
+    },
+    {
+      "logical_name": "results",
+      "is_collection": true,
+      "start_index": 8,
+      "item_size": 5,
+      "variants": [],
+      "parameters": [
+        {
+          "index": 0,
+          "logical_name": "nutrientname",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        },
+        {
+          "index": 1,
+          "logical_name": "nutrientresult",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        },
+        {
+          "index": 2,
+          "logical_name": "nutrientunit",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "string",
+          "format": null
+        }
+      ]
+    }
+  ]
+}

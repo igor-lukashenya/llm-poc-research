@@ -1,0 +1,48 @@
+{
+  "separator": ",",
+  "has_header": true,
+  "blocks": [
+    {
+      "logical_name": "sampledetails",
+      "is_collection": false,
+      "parameters": [
+        {
+          "logical_name": "customerreference",
+          "index": 0
+        },
+        {
+          "type": "datetime",
+          "index": 1,
+          "logical_name": "sampledate"
+        },
+        {
+          "logical_name": "productcode",
+          "index": 2
+        },
+        {
+          "logical_name": "productname",
+          "index": 3
+        }
+      ]
+    },
+    {
+      "logical_name": "results",
+      "is_collection": true,
+      "start_index": 4,
+      "item_size": 9,
+      "parameters": [
+        {
+          "logical_name": "nutrientname",
+          "index": 0
+        },
+        {
+          "logical_name": "nutrientresult",
+          "index": 1
+        }
+      ]
+    }
+  ],
+  "grouping": {
+    "property_logical_name": "customerreference"
+  }
+}

@@ -1,0 +1,66 @@
+### APIM Subscription Manager — API Test Requests
+### Use with JetBrains HTTP Client, VS Code REST Client, or similar
+### Base URL is configured via http-client.env.json
+
+### ─────────────────────────────────────────
+### Subscriptions (User)
+### ─────────────────────────────────────────
+
+### List subscriptions for current user
+GET {{baseUrl}}/api/subscriptions
+X-User-Id: user-alice
+Accept: application/json
+
+### List subscriptions with filters
+GET {{baseUrl}}/api/subscriptions?name=prod&sortBy=createdAt&desc=true&page=1&pageSize=10
+X-User-Id: user-alice
+Accept: application/json
+
+### Create a new subscription
+POST {{baseUrl}}/api/subscriptions
+X-User-Id: user-alice
+Content-Type: application/json
+
+{
+  "displayName": "My Test Subscription",
+  "productIds": ["product-analytics", "product-weather"]
+}
+
+### Get subscription by ID
+### Replace {id} with an actual subscription ID from the create response
+GET {{baseUrl}}/api/subscriptions/{id}
+X-User-Id: user-alice
+Accept: application/json
+
+### Rotate subscription keys
+POST {{baseUrl}}/api/subscriptions/{id}/rotate
+X-User-Id: user-alice
+
+### Update subscription products
+PUT {{baseUrl}}/api/subscriptions/{id}/products
+X-User-Id: user-alice
+Content-Type: application/json
+
+{
+  "productIds": ["product-analytics", "product-maps", "product-search"]
+}
+
+### Cancel subscription
+DELETE {{baseUrl}}/api/subscriptions/{id}
+X-User-Id: user-alice
+
+### ─────────────────────────────────────────
+### Admin
+### ─────────────────────────────────────────
+
+### List all subscriptions (admin view)
+GET {{baseUrl}}/api/admin/subscriptions
+Accept: application/json
+
+### List all with filters
+GET {{baseUrl}}/api/admin/subscriptions?owner=user-alice&state=Active&sortBy=displayName&desc=false&page=1&pageSize=10
+Accept: application/json
+
+### Get rotation status (subscriptions due or approaching rotation)
+GET {{baseUrl}}/api/admin/subscriptions/rotation-status
+Accept: application/json

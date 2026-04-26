@@ -1,0 +1,141 @@
+### AI Parsing Service — API Test Requests
+### Use with JetBrains HTTP Client, VS Code REST Client, or similar
+### Base URL is configured via http-client.env.json
+
+### ─────────────────────────────────────────
+### Templates CRUD
+### ─────────────────────────────────────────
+
+### List all templates
+GET {{baseUrl}}/api/templates
+Accept: application/json
+
+### Get template by ID
+GET {{baseUrl}}/api/templates/c0c0c0c0-0001-0001-0001-000000000001
+Accept: application/json
+
+### Create a new template
+POST {{baseUrl}}/api/templates
+Content-Type: application/json
+
+{
+  "name": "Test Template",
+  "configuration": {
+    "separator": ";",
+    "hasHeader": true,
+    "grouping": { "propertyLogicalName": "customerreference" },
+    "blocks": [
+      {
+        "logicalName": "sampledetails",
+        "isCollection": false,
+        "startIndex": 0,
+        "itemSize": 0,
+        "parameters": [
+          { "index": 0, "logicalName": "sampledate", "type": "DateTime", "format": "dd/MM/yyyy HH:mm:ss" },
+          { "index": 1, "logicalName": "productname", "type": "String" },
+          { "index": 2, "logicalName": "productcode", "type": "String" },
+          { "index": 4, "logicalName": "customerreference", "type": "String" }
+        ]
+      },
+      {
+        "logicalName": "results",
+        "isCollection": true,
+        "startIndex": 8,
+        "itemSize": 4,
+        "parameters": [
+          { "index": 0, "logicalName": "nutrientname", "source": "Header", "type": "String" },
+          { "index": 0, "logicalName": "nutrientresult", "source": "Cell", "replacePattern": ",", "replaceWith": ".", "type": "Double" }
+        ]
+      }
+    ]
+  }
+}
+
+### Update template
+PUT {{baseUrl}}/api/templates/c0c0c0c0-0001-0001-0001-000000000001
+Content-Type: application/json
+
+{
+  "name": "Updated FOSS Benchtop Template",
+  "configuration": {
+    "separator": ",",
+    "hasHeader": true,
+    "grouping": { "propertyLogicalName": "customerreference" },
+    "blocks": [
+      {
+        "logicalName": "sampledetails",
+        "isCollection": false,
+        "startIndex": 0,
+        "itemSize": 0,
+        "parameters": [
+          { "index": 0, "logicalName": "sampledate", "type": "DateTime" },
+          { "index": 1, "logicalName": "productname", "type": "String" },
+          { "index": 4, "logicalName": "customerreference", "type": "String" }
+        ]
+      },
+      {
+        "logicalName": "results",
+        "isCollection": true,
+        "startIndex": 8,
+        "itemSize": 4,
+        "parameters": [
+          { "index": 0, "logicalName": "nutrientname", "source": "Header", "type": "String" },
+          { "index": 0, "logicalName": "nutrientresult", "source": "Cell", "type": "Double" }
+        ]
+      }
+    ]
+  }
+}
+
+### Delete template
+DELETE {{baseUrl}}/api/templates/c0c0c0c0-0001-0001-0001-000000000001
+
+### ─────────────────────────────────────────
+### AI Configuration Generation
+### ─────────────────────────────────────────
+
+### Generate configuration from file
+### Note: Replace file path with an actual CSV file path
+POST {{baseUrl}}/api/generate-configuration
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="file"; filename="sample.csv"
+Content-Type: text/csv
+
+Analysis Time;Product Name;Product Code;Sample Type;Sample Number;Sample Comment;Instrument Name;Instrument Serial Number;Moisture;T-Stat Moisture;GH Moisture;NH Moisture;Protein;T-Stat Protein;GH Protein;NH Protein
+10/12/2025 07:47:12;Soy Meal;SM;Normal;025.010.528;;NIRS DS2500 F;91890485;11.98;0.03;1.06;0.25;46.62;0.07;0.63;0.17
+------boundary--
+
+### ─────────────────────────────────────────
+### Parsing
+### ─────────────────────────────────────────
+
+### Parse file with template ID
+### Note: Replace file path with an actual CSV file path
+POST {{baseUrl}}/api/parse?templateId=c0c0c0c0-0002-0002-0002-000000000002
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="file"; filename="sample.csv"
+Content-Type: text/csv
+
+Analysis Time;Product Name;Product Code;Sample Type;Sample Number;Sample Comment;Instrument Name;Instrument Serial Number;Moisture;T-Stat Moisture;GH Moisture;NH Moisture;Protein;T-Stat Protein;GH Protein;NH Protein
+10/12/2025 07:47:12;Soy Meal;SM;Normal;025.010.528;;NIRS DS2500 F;91890485;11,98;0,03;1,06;0,25;46,62;0,07;0,63;0,17
+------boundary--
+
+### Parse file with inline configuration
+POST {{baseUrl}}/api/parse
+Content-Type: multipart/form-data; boundary=----boundary
+
+------boundary
+Content-Disposition: form-data; name="file"; filename="sample.csv"
+Content-Type: text/csv
+
+Analysis Time;Product Name;Product Code;Sample Type;Sample Number;Sample Comment;Instrument Name;Instrument Serial Number;Moisture;T-Stat Moisture;GH Moisture;NH Moisture
+10/12/2025 07:47:12;Soy Meal;SM;Normal;025.010.528;;NIRS DS2500 F;91890485;11.98;0.03;1.06;0.25
+------boundary
+Content-Disposition: form-data; name="configuration"
+
+{"separator":";","hasHeader":true,"blocks":[{"logicalName":"sampledetails","isCollection":false,"startIndex":0,"itemSize":0,"parameters":[{"index":0,"logicalName":"sampledate","type":"DateTime","format":"dd/MM/yyyy HH:mm:ss"},{"index":1,"logicalName":"productname","type":"String"},{"index":4,"logicalName":"customerreference","type":"String"}]},{"logicalName":"results","isCollection":true,"startIndex":8,"itemSize":4,"parameters":[{"index":0,"logicalName":"nutrientname","source":"Header","type":"String"},{"index":0,"logicalName":"nutrientresult","source":"Cell","type":"Double"},{"index":2,"logicalName":"nutrientgh","source":"Cell","type":"Double"},{"index":3,"logicalName":"nutrientnh","source":"Cell","type":"Double"}]}]}
+------boundary--

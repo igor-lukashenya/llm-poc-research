@@ -1,0 +1,136 @@
+{
+  "separator": ",",
+  "has_header": false,
+  "blocks": [
+    {
+      "logical_name": "sampledetails",
+      "is_collection": false,
+      "start_index": 0,
+      "item_size": 0,
+      "variants": [],
+      "parameters": [
+        {
+          "logical_name": "sampledate",
+          "type": "DateTime",
+          "format": "MM/dd/yy HH:mm:ss",
+          "time_zone_id": "Asia/Manila",
+          "merge_from": [
+            { "index": 0 },
+            { "index": 1 }
+          ],
+          "merge_separator": " "
+        },
+        {
+          "logical_name": "resultsreadydate",
+          "type": "DateTime",
+          "format": "MM/dd/yy HH:mm:ss",
+          "time_zone_id": "Asia/Manila",
+          "merge_from": [
+            { "index": 0 },
+            { "index": 1 }
+          ],
+          "merge_separator": " "
+        },
+        {
+          "index": 2,
+          "logical_name": "productname",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 3,
+          "logical_name": "comment",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 4,
+          "logical_name": "customerreference",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": "QA Control No\\.:\\s*",
+          "replace_with": "",
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        }
+      ]
+    },
+    {
+      "logical_name": "results",
+      "is_collection": true,
+      "start_index": 0,
+      "item_size": 5,
+      "variants": [
+        "Quant_AV"
+      ],
+      "parameters": [
+        {
+          "index": 0,
+          "logical_name": "nutrientname",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 1,
+          "logical_name": "nutrientresult",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        },
+        {
+          "index": 2,
+          "logical_name": "nutrientunit",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "String",
+          "format": null
+        },
+        {
+          "index": 3,
+          "logical_name": "nutrientgh",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        },
+        {
+          "index": 4,
+          "logical_name": "nutrientnh",
+          "variants": [],
+          "source": "cell",
+          "replace_pattern": null,
+          "replace_with": null,
+          "extract_pattern": null,
+          "type": "Double",
+          "format": null
+        }
+      ]
+    }
+  ]
+}

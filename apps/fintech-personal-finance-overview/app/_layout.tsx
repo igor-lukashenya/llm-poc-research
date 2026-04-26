@@ -1,0 +1,38 @@
+import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import 'react-native-reanimated';
+
+import { useColorScheme } from '@/hooks/use-color-scheme';
+import { ThemeProviderCustom } from '@/hooks/use-theme-mode';
+import { CurrencyProvider } from '@/hooks/use-currency';
+import { AuthProvider } from '@/hooks/use-auth';
+
+export const unstable_settings = {
+  anchor: '(tabs)',
+};
+
+function InnerLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      </Stack>
+      <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+    </ThemeProvider>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeProviderCustom>
+      <AuthProvider>
+        <CurrencyProvider>
+          <InnerLayout />
+        </CurrencyProvider>
+      </AuthProvider>
+    </ThemeProviderCustom>
+  );
+}
